@@ -1,0 +1,77 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage{amsmath}
+\usepackage{amssymb}
+ 
+\title{Nonparametric Anomaly Detection}
+\author{}
+\date{\vspace{-10ex}}
+
+\begin{document}
+\maketitle
+\noindent
+\large\textbf{Project Proposal} \hfill Team Members: Changbai Liu, Chen Sun \\
+\normalsize EECS 545-001 \hfill  Yiyang Wang, Haonan Zhu \\
+Prof. Mert Pilanci \hfill Due Date: 11/03/2017
+
+\section*{Problem Statement}
+Anomaly detection intents to identify new incoming events that deviate from the given set of normal events, and it has wide range of applications including data security and system monitoring. In typical anomaly detection setting, all the events from normal set are treated as sample points from an unknown distribution. In real application, there are seldom known information about the nominal distribution of interest. Therefore, nonparametric method has been heavily investigates in the past decades. To control the false alarm rate, the concept of level set is widely used as stated in well-known Neyman-Pearson Lemma to achieve optimum detection efficiency, and the detector is completely characterized by its corresponding decision region. However, the exact construction of optimal decision region with unknown distribution is known to be intractable. The main goal of this project is to investigate existing work on efficient and accurate nonparametric anomaly detection methods that approximate the optimum decision region.
+
+%%Denote the event space as $\Omega$, 1 stands for anomaly event while 0 stands for normal event, the objective of anomaly detection is to derive a decision rule $f:\Omega\mapsto \{0,1\} $ from a given set of normal events $\{y_1,y_2...y_n\}\subseteq\Omega$. The decision rule can be completely characterized by its decision region. 
+
+%%However, in most applications, there are seldom known information about the functional forms of interest, which means the classical methods based on generalized likelihood ratio test are prone to inaccuracy.The real time processing constraints and the high dimension nature of the applications imposed additional efficiency requirement for any proposed solution.
+
+\section*{Project Description}
+The main reference our group is going to focus on is recent work by Lei \cite{Lei (2013)}, where a novel approach combining the idea of conformal prediction \cite{Vovk (2005)} with density estimation is proposed. With the general frame work of conformal prediction, there are a couple of existing nonparametric methods \cite{Sricharan and Hero (2011)}\cite{Zhao and Saligrama (2009)} can be interpreted as graph-based conformal prediction. \\
+
+\noindent
+In \cite{Lei (2013)}, the author investigated the proposed method for classification problem. Our group intents to implement the method specifically in the context of anomaly detection, and compare its performance with relevant methods as in \cite{Sricharan and Hero (2011)}\cite{Zhao and Saligrama (2009)}.\\
+
+\noindent
+We plan to perform experiments on two data set. One is KDD Cup 1999 Data from \cite{Asuncion and Newman (2007)} which is a widely used dataset to test network intrusion detector. Second is Benchmark Dataset for Time Series Anomaly Detection \cite{Laptev and Amizadeh (2015)}\cite{S. Rayana (2016)} from Yahoo, which is a data set for detecting unusual traffic on Yahoo servers. The performance of algorithms will be evaluated based on both averaged AUC (Area under ROC curve) and processing time (a total of training and test time) as in \cite{Sricharan and Hero (2011)}. 
+
+\section*{Anticipated Division of Work}
+\begin{center}
+    \begin{tabular}{| l | l | l | l | l |}
+    \hline
+    & Changbai Liu & Chen Sun & Yiyang Wang & Haonan Zhu \\ \hline
+    Literature Study &  &  & $\checkmark$  & $\checkmark$ \\ \hline
+    Implementation of Algorithms & $\checkmark$ & $\checkmark$ & $\checkmark$  & $\checkmark$ \\ \hline
+    Validation & $\checkmark$ & $\checkmark$  &  & \\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+
+%There are mainly two important equivalent formulation, one is based on minimum-volume-sets \cite{Lei (2013)}\cite{Scott and Nowak (2006)}, and the other The minimum-entropy-set \cite{Hero (2007)}\cite{Sricharan and Hero (2011)}. Vovk \cite{Vovk (2005)} proposed a more general framework for constructing prediction set based on conformal score, where \cite{Lei (2013)}\cite{Hero (2007)}\cite{Zhao and Saligrama (2009)} all can be interpreted as constructing the prediction set with different conformal score. Lei \cite{Lei (2013)} particularly  proposed a prediction set combining the idea of conformal prediction \cite{Vovk (2005)} with a kernel density estimator, and showed the desired prediction set is sandwiched by two kernel density level sets with carefully tuned cutoff values. However, this method would require extra method tunning the bandwidth of the proposed density estimator. More details about conformal prediction can be found in \cite{Shafer and Vovk (2008)}\cite{Vovk (2005)}. 
+%\section*{Methods to be developed}
+%From theory point of view, we want to investigate the extension from sample points to sample distribution, especially the appropriate properties of the distribution space. Given a set of normal events, one of the important assumption needed for constructing conformal prediction set is that each normal event is an i.i.d realization of the unknown distribution. Then under the null hypothesis, the rank of events is uniformly distributed. We intents to justify the method when we extend the distribution to distribution space under a nonparametric setting. A naive prediction set can be formulated by using the information divergence estimator in Noshad \cite{Noshad (2017)} directly as conformal score. However, this naive approach will be computational expensive. Our goal is to provide an efficient algorithm which can estimate the desired prediction set potentially similar to the two density estimators in Lei \cite{Lei (2013)}.
+
+%\section*{Software to be used or developed}
+%We intent to implement the anomaly detection algorithm proposed in this report in Matlab, and use current state of the art anomaly detection algorithm as BP-kNNG \cite{Sricharan and Hero (2011)}, MassAD \cite{Ting (2010)} and iForest \cite{Liu (2008)} for comparison purpose.
+
+%\section*{Validation plan}
+%In order to validate the proposed method, we want to first test the proposed algorithm with simulated data to verify its performance, and then perform experiments with real data from \cite{Asuncion and Newman (2007)} \cite{Laptev and Amizadeh (2015)} to compare its performance with other state of art algorithms as BP-kNNG \cite{Sricharan and Hero (2011)}, MassAD \cite{Ting (2010)} and iForest \cite{Liu (2008)}.The performance will be evaluated based on both averaged AUC (Area under ROC curve) and processing time (a total of training and test time) as in \cite{Sricharan and Hero (2011)}. 
+
+
+\begin{thebibliography}{9}
+\bibitem{Asuncion and Newman (2007)} A. Asuncion and D.J. Newman (2007). UCI machine learning repository.
+\bibitem{Lei (2013)} J. Lei, J. Robins, and L. Wasserman (2013). Distribution-free prediction sets.
+\emph{Journal of the American Statistical Association} \textbf{108}(501): 278-287.
+\bibitem{Hero (2007)} A. O. Hero III (2006). Geometric entropy minimization (GEM) for anomaly detection and localization. In \emph{Advances in Neural Information Processing Systems 19}.
+\bibitem{Laptev and Amizadeh (2015)} N. Laptev and S. Amizadeh (2015). Online dataset for anomaly detection. http://webscope.sandbox.yahoo.com/catalog.php?datatype=s\&did=70.
+\bibitem{Liu (2008)}.T. Liu, K.M. Ting, and Z.H. Zhou (2008). Isolation forests. In \emph{Proceedings of ICDM 2008}.
+\bibitem{Noshad (2017)} M. Noshad, K. R. Moon, S. Y. Sekeh, and A. O. Hero III (2017). Direct estimation of information divergence using nearest neighbor ratios. In \emph{IEEE International Symposium on Information Theory}.
+\bibitem{S. Rayana (2016)} S. Rayana (2016). ODDS Library [http://odds.cs.stonybrook.edu]. Stony Brook, NY: Stony Brook University, Department of Computer Science.
+\bibitem{Scott and Nowak (2006)} C. Scott and R. Nowak. Learning minimum volume sets. In \emph{Machine Learning Res} \textbf{7}: 665-704.
+\bibitem{Shafer and Vovk (2008)}G. Shafer and V. Vovk (2008). A tutorial on conformal prediction. In \emph{JMLR}.
+\bibitem{Sricharan and Hero (2011)} K. Sricharan and A. O. Hero III (2011). Efficient anomaly detection using bipartite k-NN graphs. In \emph{Advances in Neural Information Processing Systems 24}.
+\bibitem{Ting (2010)} K.M. Ting, G.T. Zhou, F.T. Liu, and S.C. Tan (2010). Mass estimation and its applications. In \emph{Proceedings of 16th ACM SIGKDD}.
+\bibitem{Vovk (2005)} V. Vovk, A. Gammerman, and G. Shafer (2005). Algorithmic learning in a random world. \emph{Springer}.
+\bibitem{Zhao and Saligrama (2009)} M. Zhao and V. Saligrama (2009). Anomaly detection with score functions based on nearest neighbor graphs. In \emph{Advances in Neural Information Processing Systems 22}.
+\end{thebibliography}
+
+\end{document}
